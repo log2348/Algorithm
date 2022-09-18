@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Map {
+	
 	private int x;
 	private int y;
 

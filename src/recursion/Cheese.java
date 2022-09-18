@@ -3,8 +3,8 @@ package recursion;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 public class Cheese {
 
 	private int locationX;
