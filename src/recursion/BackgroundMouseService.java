@@ -1,4 +1,4 @@
-package quiz01;
+package recursion;
 
 /*
  * Mouse의 행동 계속 주시
@@ -26,6 +26,7 @@ public class BackgroundMouseService implements Runnable {
 			if (mouse.getLocationX() == 9) { // 오른쪽 끝에 닿으면
 				System.out.println("오른쪽 벽에 도달했습니다.");
 				mouse.setRightWallCrash(true);
+				mouse.setDirection(Direction.DOWN);
 			}
 			
 			if (mouse.getLocationX() == 0 && mouse.getLocationY() != 0) {

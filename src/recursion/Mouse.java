@@ -1,4 +1,4 @@
-package quiz01;
+package recursion;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,8 +7,6 @@ import lombok.Setter;
 @Setter
 public class Mouse {
 	
-	private static Mouse instance = new Mouse();
-
 	private static final String LEFT = "LEFT";
 	private static final String RIGHT = "RIGHT";
 	private static final String DOWN = "DOWN";
@@ -38,13 +36,6 @@ public class Mouse {
 		initSetting();
 		new Thread(backgroundService).start();
 	}
-	
-	public static Mouse getInstance() {
-		if (instance == null) {
-			instance = new Mouse();
-		}
-		return instance;
-	}
 
 	private void initSetting() {
 		locationX = 0;
@@ -58,7 +49,7 @@ public class Mouse {
 		isRightWallCrash = false;
 		isMoveable = true;
 		
-		backgroundService = new BackgroundMouseService(this, Cheese.getInstance());
+		backgroundService = new BackgroundMouseService(this, new Cheese());
 
 	}
 
@@ -77,14 +68,17 @@ public class Mouse {
 		switch (direction) {
 		case LEFT:
 			locationX--;
+			System.out.println("쥐가 왼쪽으로 한 칸 이동하였습니다.");
 			move(direction);
 			break;
 		case RIGHT:
 			locationX++;
+			System.out.println("쥐가 오른쪽으로 한 칸 이동하였습니다.");
 			move(direction);
 			break;
 		case DOWN:
 			locationY++;
+			System.out.println("쥐가 아래로 한 칸 이동하였습니다.");
 			move(direction);
 			break;
 

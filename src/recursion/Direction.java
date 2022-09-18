@@ -1,4 +1,4 @@
-package quiz01;
+package recursion;
 
 public enum Direction {
 	LEFT, RIGHT, DOWN
