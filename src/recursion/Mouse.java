@@ -42,35 +42,38 @@ public class Mouse {
 
 	@Override
 	public String toString() {
-		return "[Mouse의 행동 횟수]\n전진 : " + forwardCount + "번\n왼쪽 회전 : " + leftTurnCount + "번\n오른쪽 회전 : " + rightTurnCount
-				+ "번";
+		return "[ Mouse의 행동 실행 횟수 ]\n전진 : " + forwardCount + "번\n왼쪽 회전 : " + leftTurnCount + "번\n오른쪽 회전 : " + rightTurnCount + "번";
 	}
 
 	public void move(Cheese cheese, Map map) {
 
-		// 쥐가 치즈에 도달하면 재귀 호출 종료
+		/**
+		 * Mouse와 Cheese의 좌표가 같아지면 재귀 호출이 종료되며, 결과값을 반환한다.
+		 */
 		if (locationX == cheese.getLocationX() && locationY == cheese.getLocationY()) {
+			System.out.println("Mouse가 Cheese를 찾았습니다 !");
 			System.out.println(this);
 			return;
 		}
 
-		// 벽 충돌 체크
+		/**
+		 * 벽 충돌 체크
+		 */
 		if (direction == Direction.RIGHT && locationX == map.getX()) {
 			isRightWallCrash = true;
 		} else if (direction == Direction.LEFT && locationX == 0) {
 			isLeftWallCrash = true;
 		}
 
+		/**
+		 * 좌표 이동 동작
+		 */
 		if (direction == Direction.RIGHT) {
 			if (isRightWallCrash) {
 				turnRight();
 			} else {
 				forwardCount++;
 				locationX++;
-				System.out.println("--- 현재 Mouse의 좌표 ---");
-				System.out.println("x : " + locationX);
-				System.out.println("y : " + locationY);
-				System.out.println("-------------------------");
 			}
 		} else if (direction == Direction.LEFT) {
 			if (isLeftWallCrash) {
@@ -78,19 +81,19 @@ public class Mouse {
 			} else {
 				forwardCount++;
 				locationX--;
-				System.out.println("--- 현재 Mouse의 좌표 ---");
-				System.out.println("x : " + locationX);
-				System.out.println("y : " + locationY);
-				System.out.println("-------------------------");
 			}
 		}
+
+		System.out.println("[ Mouse의 현재 좌표 ]");
+		System.out.println("x : " + locationX + "\ny : " + locationY + "\n");
 
 		move(cheese, map);
 
 	}
 
-	/*
-	 * 오른쪽 벽 충돌시 오른쪽으로 회전하고 아래로 한 칸 이동한다.
+	/**
+	 * 오른쪽 벽에 도달했을 시,
+	 * 오른쪽 회전한 후, 아래로 한 칸 이동하여 다시 오른쪽으로 회전한다.
 	 */
 	private void turnRight() {
 		rightTurnCount += 2;
@@ -100,8 +103,9 @@ public class Mouse {
 		isRightWallCrash = false;
 	}
 
-	/*
-	 * 왼쪽 벽 충돌시 왼쪽으로 회전하고 아래로 한 칸 이동한다.
+	/**
+	 * 왼쪽 벽에 도달했을 시,
+	 * 왼쪽 회전 후, 아래로 한칸 이동하여 다시 왼쪽으로 회전한다.
 	 */
 	private void turnLeft() {
 		leftTurnCount += 2;

@@ -20,16 +20,15 @@ public class Main {
 		boolean flag = true;
 		
 		while (flag) {
-			System.out.println("치즈의 위치를 입력 해주세요.");
-			System.out.print("X : ");
+			System.out.println("Cheese의 위치 좌표를 입력 해주세요.");
+			System.out.print("x : ");
 			cheeseX = input.nextInt();
-			System.out.print("Y : ");
+			System.out.print("y : ");
 			cheeseY = input.nextInt();
 			
 			if((cheeseX > mapX || cheeseY > mapY)
-					|| (cheeseX < 0 && cheeseY < 0)) {
-				// 둘 중 하나가 0 인 경우는 가능
-				System.out.println("치즈의 위치가 맵의 위치를 벗어났습니다.");
+					|| (cheeseX < 0 || cheeseY < 0)) {
+				System.out.println("Cheese의 위치가 맵의 범위를 벗어났습니다.");
 			} else {
 				cheese.setLocationX(cheeseX);
 				cheese.setLocationY(cheeseY);
