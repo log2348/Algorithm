@@ -47,10 +47,12 @@ public class Mouse {
 
 	@Override
 	public String toString() {
-		return "[Mouse의 행동 횟수]\n전진 : " + forwardCount + "번\n왼쪽 회전 : " + leftTurnCount + "번\n오른쪽 회전 : " + rightTurnCount + "번";
+		return "[Mouse의 행동 횟수]\n전진 : " + forwardCount + "번\n왼쪽 회전 : " + leftTurnCount + "번\n오른쪽 회전 : " + rightTurnCount
+				+ "번";
 	}
 
-	public void move() {
+	public void move() {		
+		
 		if (!isMoveable) { // 쥐가 치즈에 도달하면 재귀 호출 종료
 			System.out.println(this);
 			return;
@@ -62,8 +64,10 @@ public class Mouse {
 			} else {
 				forwardCount++;
 				locationX++;
+				System.out.println("--- 현재 Mouse의 좌표 ---");
 				System.out.println("x : " + locationX);
 				System.out.println("y : " + locationY);
+				System.out.println("-------------------------");
 			}
 		} else if (direction == Direction.LEFT) {
 			if (isLeftWallCrash) {
@@ -71,8 +75,10 @@ public class Mouse {
 			} else {
 				forwardCount++;
 				locationX--;
+				System.out.println("--- 현재 Mouse의 좌표 ---");
 				System.out.println("x : " + locationX);
 				System.out.println("y : " + locationY);
+				System.out.println("-------------------------");
 			}
 		}
 
@@ -83,7 +89,7 @@ public class Mouse {
 	 */
 	private void turnRight() {
 		rightTurnCount += 2;
-		//forwardCount++;
+		forwardCount++;
 		locationY++;
 		direction = Direction.LEFT;
 		isRightWallCrash = false;
@@ -94,7 +100,7 @@ public class Mouse {
 	 */
 	private void turnLeft() {
 		leftTurnCount += 2;
-		//forwardCount++;
+		forwardCount++;
 		locationY++;
 		direction = Direction.RIGHT;
 		isLeftWallCrash = false;

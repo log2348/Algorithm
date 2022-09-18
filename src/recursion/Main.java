@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		// 1. Cheese, Mouse, Map, BackgroundService 생성
 		Service service = new Service();
-		Map map = new Map(9, 9);
+		Map map = new Map(8, 8);
 		// 2. service DI
 		service.setMap(map);
 		service.setMouse(new Mouse());
@@ -35,7 +35,7 @@ public class Main {
 			System.out.print("Y : ");
 			cheeseY = sc.nextInt();
 			if (cheeseX < mapX && cheeseY < mapY) {
-				System.out.println("mapX : " + mapX + " mapY : " + mapY);
+				// System.out.println("mapX : " + mapX + " mapY : " + mapY);
 				cheese.setLocationX(cheeseX);
 				cheese.setLocationY(cheeseY);
 				flag = false;
