@@ -1,5 +1,6 @@
 
-### 쥐의 행동 방식
+
+## 쥐의 행동 방식
 <img src="https://user-images.githubusercontent.com/96460131/190893540-f1f006d6-91a4-4d1a-94d2-6d7d49973672.jpg" width=40% height=40%>
 
 
@@ -8,12 +9,12 @@
 
 <br>
 
-### 클래스 설명
+## 클래스 설명
 
-**Mouse**
+### Mouse
 
 
-**Cheese**
+### Cheese
 
 
     @Setter
@@ -26,9 +27,9 @@
 - 쥐와 마찬가지로 위치로서 좌표값을 가짐
 
 
-**Map**
+### Map
 
-**Service**
+### Service
 
 
     @Data
@@ -59,12 +60,15 @@
 		if (mouse.getDirection() == Direction.LEFT && mouse.getLocationX() == 0) {
 			mouse.setLeftWallCrash(true);
 		}
+		}
+
 	}
 
-}
+
+<br>
 
 
-### 실행코드
+## 실행코드
 
 
 
