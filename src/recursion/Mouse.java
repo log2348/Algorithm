@@ -6,12 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Mouse {
-	
-	private static final String LEFT = "LEFT";
-	private static final String RIGHT = "RIGHT";
-	private static final String DOWN = "DOWN";
-	
-	private BackgroundMouseService backgroundService;
+	private Service backgroundService;
 
 	// 쥐의 현재 좌표
 	private int locationX;
@@ -29,12 +24,11 @@ public class Mouse {
 	// 쥐의 방향
 	private Direction direction;
 
-	// 움직임 상태 (쥐는 치즈에 도달할 때까지 움직여야함)
+	// 움직임 상태 (쥐는 치즈에 도달할 때까지 움직여야 함)
 	private boolean isMoveable;
 
 	public Mouse() {
 		initSetting();
-		new Thread(backgroundService).start();
 	}
 
 	private void initSetting() {
@@ -48,46 +42,62 @@ public class Mouse {
 		isLeftWallCrash = false;
 		isRightWallCrash = false;
 		isMoveable = true;
-		
-		backgroundService = new BackgroundMouseService(this, new Cheese());
-
+		direction = Direction.RIGHT;
 	}
 
 	@Override
 	public String toString() {
-		return "전진 : " + forwardCount + "번\n왼쪽 회전 : " + leftTurnCount + "번\n오른쪽 회전 : " + rightTurnCount + "번";
+		return "[Mouse의 행동 횟수]\n전진 : " + forwardCount + "번\n왼쪽 회전 : " + leftTurnCount + "번\n오른쪽 회전 : " + rightTurnCount + "번";
 	}
 
-	// 재귀함수
-	public void move(Direction direction) {
-
+	public void move() {
 		if (!isMoveable) { // 쥐가 치즈에 도달하면 재귀 호출 종료
+			System.out.println(this);
 			return;
 		}
-		
-		switch (direction) {
-		case LEFT:
-			locationX--;
-			System.out.println("쥐가 왼쪽으로 한 칸 이동하였습니다.");
-			move(direction);
-			break;
-		case RIGHT:
-			locationX++;
-			System.out.println("쥐가 오른쪽으로 한 칸 이동하였습니다.");
-			move(direction);
-			break;
-		case DOWN:
-			locationY++;
-			System.out.println("쥐가 아래로 한 칸 이동하였습니다.");
-			move(direction);
-			break;
 
+		if (direction == Direction.RIGHT) {
+			if (isRightWallCrash) {
+				turnRight();
+			} else {
+				forwardCount++;
+				locationX++;
+				System.out.println("x : " + locationX);
+				System.out.println("y : " + locationY);
+			}
+		} else if (direction == Direction.LEFT) {
+			if (isLeftWallCrash) {
+				turnLeft();
+			} else {
+				forwardCount++;
+				locationX--;
+				System.out.println("x : " + locationX);
+				System.out.println("y : " + locationY);
+			}
 		}
 
 	}
 
-	public void changeDirection() {
-		
+	/*
+	 * 오른쪽 벽 충돌시 오른쪽으로 회전하고 아래로 한 칸 이동한다.
+	 */
+	private void turnRight() {
+		rightTurnCount += 2;
+		//forwardCount++;
+		locationY++;
+		direction = Direction.LEFT;
+		isRightWallCrash = false;
+	}
+
+	/*
+	 * 왼쪽 벽 충돌시 왼쪽으로 회전하고 아래로 한 칸 이동한다.
+	 */
+	private void turnLeft() {
+		leftTurnCount += 2;
+		//forwardCount++;
+		locationY++;
+		direction = Direction.RIGHT;
+		isLeftWallCrash = false;
 	}
 
 }

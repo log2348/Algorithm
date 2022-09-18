@@ -4,40 +4,47 @@ import java.util.Scanner;
 
 public class Main {
 
-	// Map 크기
-	static final int WIDTH = 9;
-	static final int HEIGHT = 9;
-
 	public static void main(String[] args) {
+		// 1. Cheese, Mouse, Map, BackgroundService 생성
+		Service service = new Service();
+		Map map = new Map(9, 9);
+		// 2. service DI
+		service.setMap(map);
+		service.setMouse(new Mouse());
+		// 3. Cheese 좌표값 세팅
+		service.setCheese(setCheeseLocation(map.getX(), map.getY()));
+		// 4. service 가동
+		service.play();
 
-		Scanner input = new Scanner(System.in);
+	}
+
+	private static Cheese setCheeseLocation(int mapX, int mapY) {
+		/**
+		 * 
+		 */
+		Scanner sc = new Scanner(System.in);
 		Cheese cheese = new Cheese();
 
-		System.out.println("Cheese의 좌표를 입력하세요.");
-		System.out.print("x 좌표 : ");
-		cheese.setLocationX(input.nextInt());
-
-		System.out.print("y 좌표 : ");
-		cheese.setLocationY(input.nextInt());
-
-		if (cheese.getLocationX() < 0 || cheese.getLocationY() < 0 || cheese.getLocationX() > WIDTH
-				|| cheese.getLocationY() > HEIGHT) {
-			System.out.println("좌표의 범위를 벗어났습니다. 다시 입력해주세요.");
-
-			System.out.print("x 좌표 : ");
-			cheese.setLocationX(input.nextInt());
-
-			System.out.print("y 좌표 : ");
-			cheese.setLocationY(input.nextInt());
+		int cheeseX;
+		int cheeseY;
+		boolean flag = true;
+		while (flag) {
+			System.out.println("치즈의 위치를 입력 해주세요.");
+			System.out.print("X : ");
+			cheeseX = sc.nextInt();
+			System.out.print("Y : ");
+			cheeseY = sc.nextInt();
+			if (cheeseX < mapX && cheeseY < mapY) {
+				System.out.println("mapX : " + mapX + " mapY : " + mapY);
+				cheese.setLocationX(cheeseX);
+				cheese.setLocationY(cheeseY);
+				flag = false;
+			} else {
+				System.out.println("치즈의 위치가 맵의 위치를 벗어났습니다.");
+			}
 		}
-
-		Mouse mouse = new Mouse();
-
-		input.close();
-
-		// mouse.move(Direction.RIGHT);
-
-		System.out.println("[ 쥐의 행동 횟수 ]\n" + mouse);
+		sc.close();
+		return cheese;
 	}
 
 }
