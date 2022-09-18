@@ -8,11 +8,12 @@ public class Service {
 	private Cheese cheese;
 	private Map map;
 
+	/*
 	public void play() {
 		while (mouse.isMoveable()) {
 			checkFaceCheese();
 			checkCrashWall();
-			mouse.move();
+			// mouse.move();
 		}
 	}
 
@@ -31,5 +32,6 @@ public class Service {
 			mouse.setLeftWallCrash(true);
 		}
 	}
+	*/
 
 }

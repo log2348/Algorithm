@@ -6,26 +6,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Mouse {
-	private Service backgroundService;
 
-	// 쥐의 현재 좌표
+	// Mouse의 현재 좌표
 	private int locationX;
 	private int locationY;
 
-	// 쥐의 행동 실행 횟수
-	private int leftTurnCount; // 왼쪽 회전
-	private int rightTurnCount; // 오른쪽 회전
-	private int forwardCount; // 전진
+	// Mouse의 행동 실행 횟수
+	private int leftTurnCount;
+	private int rightTurnCount;
+	private int forwardCount;
 
 	// 벽에 충돌한 상태
 	private boolean isLeftWallCrash;
 	private boolean isRightWallCrash;
 
-	// 쥐의 방향
+	// Mouse의 방향
 	private Direction direction;
-
-	// 움직임 상태 (쥐는 치즈에 도달할 때까지 움직여야 함)
-	private boolean isMoveable;
 
 	public Mouse() {
 		initSetting();
@@ -41,7 +37,6 @@ public class Mouse {
 
 		isLeftWallCrash = false;
 		isRightWallCrash = false;
-		isMoveable = true;
 		direction = Direction.RIGHT;
 	}
 
@@ -51,11 +46,19 @@ public class Mouse {
 				+ "번";
 	}
 
-	public void move() {		
-		
-		if (!isMoveable) { // 쥐가 치즈에 도달하면 재귀 호출 종료
+	public void move(Cheese cheese, Map map) {
+
+		// 쥐가 치즈에 도달하면 재귀 호출 종료
+		if (locationX == cheese.getLocationX() && locationY == cheese.getLocationY()) {
 			System.out.println(this);
 			return;
+		}
+
+		// 벽 충돌 체크
+		if (direction == Direction.RIGHT && locationX == map.getX()) {
+			isRightWallCrash = true;
+		} else if (direction == Direction.LEFT && locationX == 0) {
+			isLeftWallCrash = true;
 		}
 
 		if (direction == Direction.RIGHT) {
@@ -81,6 +84,8 @@ public class Mouse {
 				System.out.println("-------------------------");
 			}
 		}
+
+		move(cheese, map);
 
 	}
 
